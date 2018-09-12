@@ -12,4 +12,8 @@ fi
 # Customize to your needs...
 alias ls="colorls --sd"
 alias la="ls -lA"
-LS_COLORS=~/dotfiles/material-design-colors.itermcolors
+alias "airport=/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
+setopt auto_cd
+function chpwd() { ls }
+#LS_COLORS=~/dotfiles/material-design-colors.itermcolors
+LS_COLORS=~/gochiusa/gochiusa.dircolors
