@@ -22,56 +22,47 @@
     set guifont=RictyDiminishedDiscord-Regular\ 16
 
 if 0 | endif
+" プラグインが実際にインストールされるディレクトリ
+let s:dein_dir = expand('~/.cache/dein')
+" dein.vim 本体
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
-if has('vim_starting')
-  if &compatible
-    set nocompatible               " Be iMproved
+" dein.vim がなければ github から落としてくる
+if &runtimepath !~# '/dein.vim'
+  if !isdirectory(s:dein_repo_dir)
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
   endif
-
-  " Required:
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
+  execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
 endif
 
-" Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
+" 設定開始
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
 
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
+  " プラグインリストを収めた TOML ファイル
+  " 予め TOML ファイル（後述）を用意しておく
+  let g:rc_dir    = expand('~/.vim/rc')
+  let s:toml      = g:rc_dir . '/dein.toml'
+  let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
 
-" My Bundles here:
-" Refer to |:NeoBundle-examples|.
-" Note: You don't set neobundle setting in .gvimrc!
-NeoBundle 'itchyny/landscape.vim'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'davidhalter/jedi-vim'
-NeoBundle 'tell-k/vim-autopep8'
-NeoBundle 'tyru/caw.vim.git'
-nmap <Leader>c <Plug>(caw:i:toggle)
-vmap <Leader>c <Plug>(caw:i:toggle)
-NeoBundle 'sophacles/vim-processing'
-NeoBundle 'thinca/vim-quickrun'
-let g:quickrun_config = {}
-let g:quickrun_config.processing =  {
-      \     'command': 'processing-java',
-      \     'exec': '%c --sketch=$PWD/ --output=/Library/Processing --run --force',
-      \   }
-NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'taichouchou2/html5.vim'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'lilydjwg/colorizer'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'Yggdroot/indentLine'
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'toyamarinyon/vim-swift'
-NeoBundle 'joshdick/onedark.vim'
+  " TOML を読み込み、キャッシュしておく
+  call dein#load_toml(s:toml,      {'lazy': 0})
+  call dein#load_toml(s:lazy_toml, {'lazy': 1})
+
+  " 設定終了
+  call dein#end()
+  call dein#save_state()
+endif
+
+" もし、未インストールものものがあったらインストール
+if dein#check_install()
+  call dein#install()
+endif
+
+
 :set statusline+=%{fugitive#statusline()} 
 let g:lightline = {
-      \ 'colorscheme': 'onedark',
+      \ 'colorscheme': 'molokai',
       \ 'mode_map': { 'c': 'NORMAL' },
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
@@ -131,36 +122,15 @@ function! LightlineMode()
   return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
-NeoBundle 'sudo.vim'
-NeoBundle 'tomasr/molokai'
-NeoBundle 'Shougo/vimproc', {
-  \ 'build' : {
-    \ 'windows' : 'make -f make_mingw32.mak',
-    \ 'cygwin' : 'make -f make_cygwin.mak',
-    \ 'mac' : 'make -f make_mac.mak',
-    \ 'unix' : 'make -f make_unix.mak',
-  \ },
-\ }
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'itchyny/landscape.vim'
-NeoBundle 'sjl/badwolf'
-NeoBundle 'Shougo/neocomplete.vim'
-NeoBundle 'justmao945/vim-clang'
-NeoBundle 'Shougo/neoinclude.vim'
-call neobundle#end()
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
 " Required:
 filetype plugin indent on
 
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-
 syntax on
 set background=dark
-colorscheme onedark
+colorscheme molokai
 let g:solarized_termcolors=256
 set t_Co=256
 map <F5> :w <CR> :!gcc % && ./a.out <CR>
@@ -168,4 +138,3 @@ inoremap { {}<Left>
 inoremap {<Enter> {}<Left><CR><ESC><S-o>
 inoremap ( ()<ESC>i
 inoremap (<Enter> ()<Left><CR><ESC><S-o>
-
