@@ -97,7 +97,15 @@ esac
 
 ### Aliases ###
 alias r=rails
-alias ls='/usr/local/bin/gls --color=auto'
+case ${OSTYPE} in
+    darwin*)
+        #ここにMac向けの設定
+        alias ls='/usr/local/bin/gls --color=auto'
+        ;;
+    linux*)
+        #ここにLinux向けの設定
+        ;;
+esac
 alias v=vim
 alias la='ls -a'
 alias ll='ls -l'
