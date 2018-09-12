@@ -1,0 +1,110 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# Customize to your needs...
+setopt nobeep
+
+if [ `uname -m` = "arm64" ]; then
+  typeset -U path PATH
+  path=(
+    $HOME/.bin(N-/)
+    /opt/homebrew/bin(N-/)
+    /opt/homebrew/sbin(N-/)
+    /usr/bin
+    /usr/sbin
+    /usr/local/bin
+    /usr/local/sbin
+    /bin
+    /sbin
+    /Library/Apple/usr/bin
+  )
+  export LDFLAGS=""
+  export CPPFLAGS=""
+else
+  typeset -U path PATH
+  path=(
+    $HOME/bin(N-/)
+    /usr/local/bin(N-/)
+    /usr/local/sbin(N-/)
+    /usr/bin
+    /usr/sbin
+    /bin
+    /sbin
+    /Library/Apple/usr/bin
+  )
+  export LDFLAGS="-L/usr/local/opt/node@14/lib"
+  export CPPFLAGS="-I/usr/local/opt/node@14/include"
+  HOMEBREW_PATH=/usr/local/bin/brew
+fi
+
+export GOPATH=$HOME/development/go
+ANDROID_SDK_PATH=$HOME/Library/Android/sdk/platform-tools
+FLUTTER_PATH=$HOME/development/flutter/bin
+JDK_PATH=/opt/homebrew/opt/openjdk/bin
+export JAVA_HOME=`/usr/libexec/java_home -v "17.0.3"`
+export PATH=$GOPATH/bin:$FLUTTER_PATH:$ANDROID_SDK_PATH:$JDK_PATH:$JAVA_HOME:$PATH
+
+alias nvim="NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim"
+alias v="/usr/bin/vim"
+alias vim="nvim"
+alias fig="docker-compose"
+alias ls='exa --group-directories-first --icons'
+alias l='ls'
+alias ll='ls -hal --git --time-style=iso --header'
+alias la='ls -a'
+alias photoarg=$'exiftool -r \'-Filename<${model;}/${CreateDate}/%f%-c.%le\' -d %Y-%m-%d -r ./ -i ./Luminar -i ./Lightroom -i ./Lightroom\ Library.lrlibrary -i ./Lightroom\ 保存済み写真 -i Photos\ Library.photoslibrary'
+
+source $HOME/.cargo/env
+setopt auto_cd
+function chpwd() {ls}
+
+eval "$(anyenv init -)"
+
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+  source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  
+  autoload -Uz compinit
+  compinit
+fi
+
+autoload -U +X bashcompinit && bashcompinit
+source ~/.azure/az.completion
+
+if (( $+commands[sw_vers] )) && (( $+commands[arch] )); then
+  alias x64='exec arch -x86_64 /bin/zsh'
+  alias a64='exec arch -arm64e /bin/zsh'
+  switch-arch() {
+    if  [[ "$(uname -m)" == arm64 ]]; then
+      arch=x86_64
+    elif [[ "$(uname -m)" == x86_64 ]]; then
+      arch=arm64e
+    fi
+    exec arch -arch $arch /bin/zsh
+  }
+fi
+
+fpath=(/opt/homebrew/share/zsh-completions $fpath)
+
+autoload -U compinit
+compinit -u
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
