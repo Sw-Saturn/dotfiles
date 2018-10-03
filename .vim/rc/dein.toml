@@ -15,6 +15,7 @@ repo = 'yamasy1549/gochiusa.vim'
 
 [[plugins]]
 repo='cespare/vim-toml'
+
 [[plugins]]
 repo = 'joshdick/onedark.vim'
 
@@ -38,6 +39,7 @@ repo = 'Shougo/unite.vim'
 
 [[plugins]]
 repo = 'davidhalter/jedi-vim'
+on_ft='python'
 
 [[plugins]]
 repo = 'tell-k/vim-autopep8'
