@@ -5,6 +5,9 @@ repo = 'Shougo/dein.vim'
 repo='othree/html5.vim'
 
 [[plugins]]
+repo = 'scrooloose/syntastic'
+
+[[plugins]]
 repo='jelera/vim-javascript-syntax'
 
 [[plugins]]

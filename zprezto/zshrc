@@ -13,7 +13,8 @@ fi
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 alias ls="colorls --sd"
 setopt nobeep
-alias la="ls -lA"
+alias la="ls --sd -lA"
+alias ll="ls --sd -dla"
 alias "airport=/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
 setopt auto_cd
 function chpwd() { ls }
