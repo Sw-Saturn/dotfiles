@@ -17,8 +17,10 @@ alias la="ls --sd -lA"
 alias ll="ls --sd -dla"
 alias "airport=/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
 setopt auto_cd
-function chpwd() { ls }
+function chpwd() {ls}
 #LS_COLORS=~/dotfiles/material-design-colors.itermcolors
 LS_COLORS=~/gochiusa/gochiusa.dircolors
 export GNU_BD="/opt/gnuarm/gcc-arm-none-eabi-5_4-2016q3"
 export PATH=$PATH:/Users/Kanta/Library/Android/sdk/platform-tools/:${GNU_BD}/bin
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$PATH

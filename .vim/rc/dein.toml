@@ -8,6 +8,9 @@ repo='othree/html5.vim'
 repo = 'scrooloose/syntastic'
 
 [[plugins]]
+repo = 'fatih/vim-go'
+
+[[plugins]]
 repo='jelera/vim-javascript-syntax'
 
 [[plugins]]
