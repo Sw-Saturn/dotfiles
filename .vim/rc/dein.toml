@@ -11,6 +11,9 @@ repo = 'scrooloose/syntastic'
 repo = 'fatih/vim-go'
 
 [[plugins]]
+repo = 'scrooloose/nerdtree'
+
+[[plugins]]
 repo='jelera/vim-javascript-syntax'
 
 [[plugins]]
