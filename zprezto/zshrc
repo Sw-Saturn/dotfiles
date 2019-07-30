@@ -24,3 +24,5 @@ export GNU_BD="/opt/gnuarm/gcc-arm-none-eabi-5_4-2016q3"
 export PATH=$PATH:/Users/Kanta/Library/Android/sdk/platform-tools/:${GNU_BD}/bin
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
+eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
+alias brew="env PATH=${PATH/\/Users\/${USER}\/\.pyenv\/shims:/} brew"

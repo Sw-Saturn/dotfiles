@@ -146,7 +146,7 @@ POWERLEVEL9K_NETWORK_ICON=`zsh_internet_signal`
 POWERLEVEL9K_CUSTOM_INTERNET_SIGNAL="zsh_internet_signal"
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon root_indicator context dir_writable dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs command_execution_time ram battery ip time)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs command_execution_time ram battery time)
 
 # Add additional directories to load prezto modules from
 # zstyle ':prezto:load' pmodule-dirs $HOME/.zprezto-contrib

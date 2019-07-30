@@ -64,5 +64,5 @@ fi
 export PATH="$HOME/.rbenv/bin:/usr/local/bin:$HOME/.pyenv/shims:$PATH"
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH="$PYENV_ROOT/bin:$HOME/flutter/bin/cache/dart-sdk/bin/:$HOME/flutter/bin:$HOME/.local/bin:$HOME/flutter/.pub-cache/bin:$HOME/.pub-cache/bin:`yarn global bin`:$PATH"
 eval "$(pyenv init -)"
