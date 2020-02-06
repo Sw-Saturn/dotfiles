@@ -14,15 +14,18 @@ source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 alias ls="colorls --sd"
 setopt nobeep
 alias la="ls --sd -lA"
-alias ll="ls --sd -dla"
+alias ll="ls -l"
 alias "airport=/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
 setopt auto_cd
 function chpwd() {ls}
 #LS_COLORS=~/dotfiles/material-design-colors.itermcolors
 LS_COLORS=~/gochiusa/gochiusa.dircolors
 export GNU_BD="/opt/gnuarm/gcc-arm-none-eabi-5_4-2016q3"
-export PATH=$PATH:/Users/Kanta/Library/Android/sdk/platform-tools/:${GNU_BD}/bin
+export PATH=$PATH:$HOME/Library/Android/sdk/platform-tools/:${GNU_BD}/bin
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
 eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
 alias brew="env PATH=${PATH/\/Users\/${USER}\/\.pyenv\/shims:/} brew"
+alias fig="docker-compose"
+source <(kubectl completion zsh)
+export PATH="/usr/local/opt/avr-gcc@4/bin:$PATH"

@@ -14,9 +14,10 @@
 
 
 # Color output (auto set to 'no' on dumb terminals).
-zstyle ':prezto:*:*' color 'yes'
+#zstyle ':prezto:*:*' color 'yes'
+zstyle :prezto:module:prompt theme powerlevel10k
 export TERM="xterm-256color"
-ZSH_THEME="powerlevel9k/powerlevel9k"
+#ZSH_THEME="powerlevel9k/powerlevel9k"
 alias "airport=/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
 prompt_zsh_battery_level() {
     percentage=`pmset -g batt | egrep "([0-9]+\%).*" -o --colour=auto | cut -f1 -d';' | grep -oe '\([0-9.]*\)'`
