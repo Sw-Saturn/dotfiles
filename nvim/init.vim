@@ -75,7 +75,6 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
 
 " Required:
 filetype plugin indent on
-colorscheme onedark
 let g:solarized_termcolors=256
 syntax on
 set t_Co=256

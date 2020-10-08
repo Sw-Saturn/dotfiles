@@ -2,24 +2,6 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo='othree/html5.vim'
-
-[[plugins]]
-repo = 'scrooloose/syntastic'
-
-[[plugins]]
-repo = 'fatih/vim-go'
-
-[[plugins]]
-repo='jelera/vim-javascript-syntax'
-
-[[plugins]]
-repo='hail2u/vim-css3-syntax'
-
-[[plugins]]
-repo = 'yamasy1549/gochiusa.vim'
-
-[[plugins]]
 repo='cespare/vim-toml'
 
 [[plugins]]
@@ -29,38 +11,10 @@ repo = 'joshdick/onedark.vim'
 repo = 'itchyny/landscape.vim'
 
 [[plugins]]
-repo = 'Shougo/neosnippet'
-
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
 repo = 'airblade/vim-gitgutter'
 
 [[plugins]]
 repo = 'Shougo/vimshell'
-
-[[plugins]]
-repo = 'Shougo/unite.vim'
-
-[[plugins]]
-repo = 'davidhalter/jedi-vim'
-on_ft='python'
-
-[[plugins]]
-repo = 'tell-k/vim-autopep8'
-
-[[plugins]]
-repo = 'tyru/caw.vim.git'
-
-[[plugins]]
-repo = 'hail2u/vim-css3-syntax'
-
-[[plugins]]
-repo ='hokaccha/vim-html5validator'
-
-[[plugins]]
-repo = 'mattn/emmet-vim'
 
 [[plugins]]
 repo = 'lilydjwg/colorizer'
@@ -68,8 +22,12 @@ repo = 'lilydjwg/colorizer'
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 hook_add = '''
-  :set statusline+=%{fugitive#statusline()} 
+source ~/.vim/config/plugins/vim-fugitive.vim
 '''
+
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+rev = 'release'
 
 [[plugins]]
 repo = 'Yggdroot/indentLine'
@@ -77,15 +35,8 @@ repo = 'Yggdroot/indentLine'
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 hook_add = '''
-source ~/.vim/userautoload/lightline.vim
+source ~/.vim/config/plugins/lightline.vim
 '''
-
-[[plugins]]
-repo = 'davidhalter/jedi-vim'
-[[plugins]]
-repo='hdima/python-syntax'
-[[plugins]]
-repo = 'vim-scripts/sudo.vim'
 
 [[plugins]]
 repo = 'tomasr/molokai'
@@ -93,26 +44,8 @@ repo = 'tomasr/molokai'
 [[plugins]]
 repo = 'Shougo/vimproc'
 hook_post_update = '''
-  if dein#util#_is_windows()
-    let cmd = 'tools\\update-dll-mingw'
-  elseif dein#util#_is_cygwin()
-    let cmd = 'make -f make_cygwin.mak'
-  elseif executable('gmake')
-    let cmd = 'gmake'
-  else
-    let cmd = 'make'
-  endif
-  let g:dein#plugin.build = cmd
+source ~/.vim/config/plugins/vimproc.vim
 '''
-
-[[plugins]]
-repo = 'sjl/badwolf'
-
-[[plugins]]
-repo = 'Shougo/neocomplete.vim'
-
-[[plugins]]
-repo = 'justmao945/vim-clang'
 
 [[plugins]]
 repo = 'Shougo/neoinclude.vim'

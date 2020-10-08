@@ -1,5 +1,5 @@
 let g:lightline = {
-      \ 'colorscheme': 'powerline',
+      \ 'colorscheme': 'dark_purple',
       \ 'mode_map': { 'c': 'NORMAL' },
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
