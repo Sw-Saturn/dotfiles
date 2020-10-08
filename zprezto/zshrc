@@ -16,6 +16,8 @@ setopt nobeep
 alias la="ls --sd -lA"
 alias ll="ls -l"
 alias "airport=/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
+alias vim="nvim"
+alias v="vim"
 setopt auto_cd
 function chpwd() {ls}
 #LS_COLORS=~/dotfiles/material-design-colors.itermcolors
@@ -29,3 +31,4 @@ alias brew="env PATH=${PATH/\/Users\/${USER}\/\.pyenv\/shims:/} brew"
 alias fig="docker-compose"
 source <(kubectl completion zsh)
 export PATH="/usr/local/opt/avr-gcc@4/bin:$PATH"
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"

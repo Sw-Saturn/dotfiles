@@ -61,7 +61,7 @@ export LESS='-F -g -i -M -R -S -w -X -z-4'
 if (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
-export PATH="$HOME/.rbenv/bin:/usr/local/bin:$HOME/.pyenv/shims:$PATH"
+export PATH="$HOME/.rbenv/bin:/usr/local/bin:$HOME/.pyenv/shims:$HOME/.nodebrew/current/bin:$PATH"
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 export PYENV_ROOT="$HOME/.pyenv"
 export PIPENV_VENV_IN_PROJECT=1
@@ -77,3 +77,6 @@ export CPPFLAGS="-I/usr/local/opt/tcl-tk/include"
 export PKG_CONFIG_PATH="/usr/local/opt/tcl-tk/lib/pkgconfig"
 export PYTHON_CONFIGURE_OPTS="--with-tcltk-includes='-I/usr/local/opt/tcl-tk/include' --with-tcltk-libs='-L/usr/local/opt/tcl-tk/lib -ltcl8.6 -ltk8.6'"
 eval "$(pyenv init -)"
+export GPG_TTY=$(tty)
+
+export PATH="$HOME/.cargo/bin:$PATH"
