@@ -2,10 +2,43 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
+repo = 'Shougo/defx.nvim'
+hook_add = '''
+source ~/.vim/config/plugins/defx.vim
+'''
+
+[[plugins]]
+repo = 'kristijanhusak/defx-icons'
+
+[[plugins]]
+repo = 'kristijanhusak/defx-git'
+
+[[plugins]]
+repo = 'roxma/nvim-yarp'
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+
+[[plugins]]
+repo='neoclide/coc.nvim'
+
+[[plugins]]
+repo = 'scrooloose/syntastic'
+
+[[plugins]]
+repo = 'fatih/vim-go'
+
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+
+[[plugins]]
 repo='cespare/vim-toml'
 
 [[plugins]]
 repo = 'joshdick/onedark.vim'
+
+[[plugins]]
+repo = 'Rigellute/shades-of-purple.vim'
 
 [[plugins]]
 repo = 'itchyny/landscape.vim'
@@ -14,35 +47,22 @@ repo = 'itchyny/landscape.vim'
 repo = 'airblade/vim-gitgutter'
 
 [[plugins]]
-repo = 'lervag/vimtex'
-
-[[plugins]]
-repo = 'Shougo/vimshell'
+repo = 'mattn/emmet-vim'
 
 [[plugins]]
 repo = 'lilydjwg/colorizer'
 
 [[plugins]]
-repo = 'tpope/vim-fugitive'
+repo = 'vim-airline/vim-airline'
 hook_add = '''
-source ~/.vim/config/plugins/vim-fugitive.vim
+source ~/.vim/config/plugins/vim-airline.vim
 '''
 
 [[plugins]]
-repo = 'neoclide/coc.nvim'
-rev = 'release'
+repo = 'vim-airline/vim-airline-themes'
 
 [[plugins]]
-repo = 'Yggdroot/indentLine'
-
-[[plugins]]
-repo = 'itchyny/lightline.vim'
-hook_add = '''
-source ~/.vim/config/plugins/lightline.vim
-'''
-
-[[plugins]]
-repo = 'tomasr/molokai'
+repo = 'ryanoasis/vim-devicons'
 
 [[plugins]]
 repo = 'Shougo/vimproc'
@@ -51,5 +71,12 @@ source ~/.vim/config/plugins/vimproc.vim
 '''
 
 [[plugins]]
-repo = 'Shougo/neoinclude.vim'
+repo = 'sjl/badwolf'
+
+[[plugins]]
+repo = 'lervag/vimtex'
+on_ft = ['tex']
+hook_add = '''
+source ~/.vim/config/plugins/vimtex.vim
+'''
 

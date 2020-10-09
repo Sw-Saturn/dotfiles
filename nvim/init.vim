@@ -16,7 +16,7 @@ set ttyfast                     " 高速ターミナル接続を行う(スクロ
 set scrolloff=10                " 編集中の箇所の周辺のテキストを見ることができる(スクロールする時に下が見える)
 set noswapfile                  " スワップファイルを作成しない 
 set nobackup
-set whichwrap=b,s,[,],<,>
+set whichwrap=b,s,[,],<,>,h,l
 set backspace=indent,eol,start
 set wildmenu
 set laststatus=2
@@ -27,6 +27,7 @@ scriptencoding utf-8
 set cursorline
 set hls
 set clipboard=unnamed
+set termguicolors
 set guifont=JetBrainsMono\ 16
 filetype plugin indent on
 set background=dark
@@ -75,6 +76,7 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
 
 " Required:
 filetype plugin indent on
+colorscheme shades_of_purple
 let g:solarized_termcolors=256
 syntax on
 set t_Co=256
@@ -84,4 +86,7 @@ inoremap {<Enter> {}<Left><CR><ESC><S-o>
 inoremap ( ()<ESC>i
 inoremap (<Enter> ()<Left><CR><ESC><S-o>
 nnoremap <F3> :noh<CR>
+
+set conceallevel=0
+let g:vim_json_syntax_conceal = 0
 
