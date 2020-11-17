@@ -15,7 +15,6 @@ alias ls="colorls --sd"
 setopt nobeep
 alias la="ls -A"
 alias ll="ls -l"
-alias "airport=/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
 alias nvim="NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim"
 alias vim="nvim"
 alias v="vim"
