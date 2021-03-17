@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 #
 # Executes commands at the start of an interactive session.
 #
@@ -9,26 +16,57 @@
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
+
 # Customize to your needs...
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-alias ls="colorls --sd"
 setopt nobeep
-alias la="ls -A"
-alias ll="ls -l"
+
+if [ `uname -m` = "arm64" ]; then
+  HOMEBREW_PATH=/opt/homebrew/bin
+else
+  HOMEBREW_PATH=/usr/local/bin/brew
+fi
+
+export GOPATH=$HOME/go
+export PATH=$HOMEBREW_PATH:$GOPATH/bin:$PATH
+
 alias nvim="NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim"
+alias v="/usr/bin/vim"
 alias vim="nvim"
-alias v="vim"
+alias fig="docker-compose"
+alias ls='exa --group-directories-first --icons'
+alias l='ls'
+alias ll='ls -hal --git --time-style=iso --header'
+alias la='ls -a'
 setopt auto_cd
 function chpwd() {ls}
-#LS_COLORS=~/dotfiles/material-design-colors.itermcolors
-LS_COLORS=~/gochiusa/gochiusa.dircolors
-export GNU_BD="/opt/gnuarm/gcc-arm-none-eabi-5_4-2016q3"
-export PATH=$PATH:$HOME/Library/Android/sdk/platform-tools/:${GNU_BD}/bin
-export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:$PATH
-eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
-alias brew="env PATH=${PATH/\/Users\/${USER}\/\.pyenv\/shims:/} brew"
-alias fig="docker-compose"
+
+eval "$(anyenv init -)"
+
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+  source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  
+  autoload -Uz compinit
+  compinit
+fi
+
+autoload -U +X bashcompinit && bashcompinit
+source ~/.azure/az.completion
 source <(kubectl completion zsh)
-export PATH="/usr/local/opt/avr-gcc@4/bin:$PATH"
-export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+
+if (( $+commands[sw_vers] )) && (( $+commands[arch] )); then
+  [[ -x /usr/local/bin/brew ]] && alias brew="arch -arch x86_64 /usr/local/bin/brew"
+  alias x64='exec arch -x86_64 /bin/zsh'
+  alias a64='exec arch -arm64e /bin/zsh'
+  switch-arch() {
+    if  [[ "$(uname -m)" == arm64 ]]; then
+      arch=x86_64
+    elif [[ "$(uname -m)" == x86_64 ]]; then
+      arch=arm64e
+    fi
+    exec arch -arch $arch /bin/zsh
+  }
+fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

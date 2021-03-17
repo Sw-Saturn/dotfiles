@@ -59,28 +59,8 @@ export LESS='-F -g -i -M -R -S -w -X -z-4'
 # Set the Less input preprocessor.
 # Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
 if (( $#commands[(i)lesspipe(|.sh)] )); then
-  export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-export RUBY_CONFIGURE_OPTS="--with-openssl-dir=/usr/local/opt/openssl@1.1"
-export PATH="$HOME/.rbenv/bin:/usr/local/bin:$HOME/.nodebrew/current/bin:$PATH"
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-export PYENV_ROOT="$HOME/.pyenv"
-export PIPENV_VENV_IN_PROJECT=1
-export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$PYENV_ROOT/bin
-export PATH=$PATH:$PYENV_ROOT/shims
-export PATH=$PATH:$HOME/.local/bin
-export PATH=$PATH:$ANDROID_HOME/tools/bin
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
-export PATH="$PYENV_ROOT/bin:$HOME/flutter/bin/cache/dart-sdk/bin/:$HOME/flutter/bin:$HOME/.local/bin:$HOME/flutter/.pub-cache/bin:$HOME/.pub-cache/bin:`yarn global bin`:/usr/local/opt/tcl-tk/bin:$PATH"
-export LDFLAGS="-L/usr/local/opt/tcl-tk/lib"
-export CPPFLAGS="-I/usr/local/opt/tcl-tk/include"
-export PKG_CONFIG_PATH="/usr/local/opt/tcl-tk/lib/pkgconfig"
-export PYTHON_CONFIGURE_OPTS="--with-tcltk-includes='-I/usr/local/opt/tcl-tk/include' --with-tcltk-libs='-L/usr/local/opt/tcl-tk/lib -ltcl8.6 -ltk8.6'"
-eval "$(pyenv init -)"
 export GPG_TTY=$(tty)
 
-export PATH="$HOME/.cargo/bin:$PATH"

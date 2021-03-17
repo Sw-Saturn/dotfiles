@@ -25,7 +25,7 @@
     set encoding=utf-8
     scriptencoding utf-8
     set cursorline
-    set guifont=RictyDiminishedDiscord-Regular\ 18
+    set guifont=JetBrainsMono-Regular\ 18
 filetype plugin indent on
 
 

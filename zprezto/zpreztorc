@@ -15,88 +15,8 @@
 
 # Color output (auto set to 'no' on dumb terminals).
 #zstyle ':prezto:*:*' color 'yes'
-zstyle :prezto:module:prompt theme powerlevel10k
 export TERM="xterm-256color"
-#ZSH_THEME="powerlevel9k/powerlevel9k"
-prompt_zsh_battery_level() {
-    percentage=`pmset -g batt | egrep "([0-9]+\%).*" -o --colour=auto | cut -f1 -d';' | grep -oe '\([0-9.]*\)'`
-    local color='%F{red}'
-    local symbol="\uf00d"
-if [ "$(bc <<< "scale=2 ; $percentage<25")" = '1' ]
-    then symbol="\uf244" ; color='%F{red}' ;
-        #Less than 25
-        fi  
-if [ "$(bc <<< "scale=2 ; $percentage>=25")" = '1' ] && [ "$(bc <<< "scale=2 ; $percentage<50")" = '1' ]
-    then symbol='\uf243' ; color='%F{red}' ;
-    #25%
-    fi
-if [ "$(bc <<< "scale=2 ; $percentage>=50")" = '1' ] && [ "$(bc <<< "scale=2 ; $percentage<75")" = '1' ]  
-    then symbol="\uf242" ; color='%F{yellow}' ;
-     #50%
-     fi
-if [ "$(bc <<< "scale=2 ; $percentage>=75")" = '1' ] && [ "$(bc <<< "scale=2 ; $percentage<100")" = '1' ]
-    then symbol="\uf241" ; color='%F{blue}' ;
-        #75%
-        fi  
-if [ "$(bc <<< "scale=2 ; $percentage>99")" = '1' ]
-    then symbol="\uf240" ; color='%F{green}' ;
-        #100%
-        fi
-pmset -g batt | grep "discharging" >& /dev/null
-if [ $? -eq 0 ]; then
-    true;
-else ;
-   color='%F{green}' ;
-fi
-echo -n "%{$color%}$symbol " 
-}
-
-POWERLEVEL9K_MODE='nerdfont-complete'
-
-# OS segment
-POWERLEVEL9K_OS_ICON_BACKGROUND="white"
-POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
-
-# Dirs
-POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
-POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-
-# Context
-POWERLEVEL9K_ALWAYS_SHOW_CONTEXT=true
-POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND='green'
-POWERLEVEL9K_CONTEXT_TEMPLATE="%F{cyan}%n%f"
-POWERLEVEL9K_CONTEXT_DEFAULT_BACKGROUND='black'
-
-# Status
-POWERLEVEL9K_STATUS_VERBOSE=true
-POWERLEVEL9K_STATUS_CROSS=true
-
-# Double-Lined Prompt
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_RPROMPT_ON_NEWLINE=false
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%F{014}╭%F{cyan}"
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%F{014}\u2570%F{cyan}\uF460%F{073}\uF460%F{109}\uF460%f "
-
-# battery
-POWERLEVEL9K_BATTERY_CHARGING='yellow'
-POWERLEVEL9K_BATTERY_CHARGED='green'
-POWERLEVEL9K_BATTERY_DISCONNECTED='$DEFAULT_COLOR'
-POWERLEVEL9K_BATTERY_LOW_THRESHOLD='10'
-POWERLEVEL9K_BATTERY_LOW_COLOR='red'
-POWERLEVEL9K_BATTERY_ICON=`prompt_zsh_battery_level `
-
-# Time
-POWERLEVEL9K_TIME_FORMAT="%D{\uf017 %H:%M \uf073 %Y.%m.%d}"
-POWERLEVEL9K_TIME_BACKGROUND='blue'
-
-# network
-# POWERLEVEL9K_NETWORK_ICON=`zsh_internet_signal`
-# POWERLEVEL9K_CUSTOM_INTERNET_SIGNAL="zsh_internet_signal"
-
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon root_indicator context dir_writable dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs command_execution_time ram battery)
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Add additional directories to load prezto modules from
 # zstyle ':prezto:load' pmodule-dirs $HOME/.zprezto-contrib
@@ -120,14 +40,15 @@ zstyle ':prezto:load' pmodule \
   'completion' \
   'syntax-highlighting' \
   'history-substring-search' \
-  'prompt'
+  'prompt' \
+  'syntax-highlighting' \
 
 #
 # Autosuggestions
 #
 
 # Set the query found color.
-# zstyle ':prezto:module:autosuggestions:color' found ''
+# zstyle ':prezto:module:autosuggestions' color 'yes'
 
 #
 # Completions
@@ -198,7 +119,7 @@ zstyle ':prezto:module:editor' key-bindings 'vi'
 # Set the prompt theme to load.
 # Setting it to 'random' loads a random theme.
 # Auto set to 'off' on dumb terminals.
-zstyle ':prezto:module:prompt' theme 'powerlevel9k'
+zstyle ':prezto:module:prompt' theme 'powerlevel10k'
 
 # Set the working directory prompt display length.
 # By default, it is set to 'short'. Set it to 'long' (without '~' expansion)
