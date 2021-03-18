@@ -26,8 +26,10 @@ else
   HOMEBREW_PATH=/usr/local/bin/brew
 fi
 
-export GOPATH=$HOME/go
-export PATH=$HOMEBREW_PATH:$GOPATH/bin:$PATH
+export GOPATH=$HOME/development/go
+ANDROID_SDK_PATH=$HOME/Library/Android/sdk/platform-tools
+FLUTTER_PATH=$HOME/development/flutter/bin
+export PATH=$HOMEBREW_PATH:$GOPATH/bin:$FLUTTER_PATH:$ANDROID_SDK_PATH:$PATH
 
 alias nvim="NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim"
 alias v="/usr/bin/vim"
@@ -70,3 +72,4 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
