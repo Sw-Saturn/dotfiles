@@ -70,6 +70,11 @@ if (( $+commands[sw_vers] )) && (( $+commands[arch] )); then
   }
 fi
 
+fpath=(/opt/homebrew/share/zsh-completions $fpath)
+
+autoload -U compinit
+compinit -u
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
