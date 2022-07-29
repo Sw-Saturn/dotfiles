@@ -21,15 +21,44 @@ fi
 setopt nobeep
 
 if [ `uname -m` = "arm64" ]; then
-  HOMEBREW_PATH=/opt/homebrew/bin
+  typeset -U path PATH
+  path=(
+    $HOME/.bin(N-/)
+    /opt/homebrew/bin(N-/)
+    /opt/homebrew/sbin(N-/)
+    /usr/bin
+    /usr/sbin
+    /usr/local/bin
+    /usr/local/sbin
+    /bin
+    /sbin
+    /Library/Apple/usr/bin
+  )
+  export LDFLAGS=""
+  export CPPFLAGS=""
 else
+  typeset -U path PATH
+  path=(
+    $HOME/bin(N-/)
+    /usr/local/bin(N-/)
+    /usr/local/sbin(N-/)
+    /usr/bin
+    /usr/sbin
+    /bin
+    /sbin
+    /Library/Apple/usr/bin
+  )
+  export LDFLAGS="-L/usr/local/opt/node@14/lib"
+  export CPPFLAGS="-I/usr/local/opt/node@14/include"
   HOMEBREW_PATH=/usr/local/bin/brew
 fi
 
 export GOPATH=$HOME/development/go
 ANDROID_SDK_PATH=$HOME/Library/Android/sdk/platform-tools
 FLUTTER_PATH=$HOME/development/flutter/bin
-export PATH=$HOMEBREW_PATH:$GOPATH/bin:$FLUTTER_PATH:$ANDROID_SDK_PATH:$PATH
+JDK_PATH=/opt/homebrew/opt/openjdk/bin
+export JAVA_HOME=`/usr/libexec/java_home -v "17.0.3"`
+export PATH=$GOPATH/bin:$FLUTTER_PATH:$ANDROID_SDK_PATH:$JDK_PATH:$JAVA_HOME:$PATH
 
 alias nvim="NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim"
 alias v="/usr/bin/vim"
@@ -39,6 +68,9 @@ alias ls='exa --group-directories-first --icons'
 alias l='ls'
 alias ll='ls -hal --git --time-style=iso --header'
 alias la='ls -a'
+alias photoarg=$'exiftool -r \'-Filename<${model;}/${CreateDate}/%f%-c.%le\' -d %Y-%m-%d -r ./ -i ./Luminar -i ./Lightroom -i ./Lightroom\ Library.lrlibrary -i ./Lightroom\ 保存済み写真 -i Photos\ Library.photoslibrary'
+
+source $HOME/.cargo/env
 setopt auto_cd
 function chpwd() {ls}
 
@@ -54,10 +86,8 @@ fi
 
 autoload -U +X bashcompinit && bashcompinit
 source ~/.azure/az.completion
-source <(kubectl completion zsh)
 
 if (( $+commands[sw_vers] )) && (( $+commands[arch] )); then
-  [[ -x /usr/local/bin/brew ]] && alias brew="arch -arch x86_64 /usr/local/bin/brew"
   alias x64='exec arch -x86_64 /bin/zsh'
   alias a64='exec arch -arm64e /bin/zsh'
   switch-arch() {
