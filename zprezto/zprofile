@@ -67,3 +67,6 @@ export GPG_TTY=$(tty)
 
 # Added by OrbStack: command-line tools and integration
 source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+
+# Created by `pipx` on 2025-05-09 13:45:13
+export PATH="$PATH:/Users/saturn/.local/bin"
