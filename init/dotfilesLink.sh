@@ -21,4 +21,11 @@ for file in `\find . -maxdepth 8 -type f`; do
     ln -snfv ${DOT_DIRECTORY}/${DOT_CONFIG_DIRECTORY}/${file:2} ${HOME}/${DOT_CONFIG_DIRECTORY}/${file:2}
 done
 
+echo "link claude code config"
+mkdir -p ${HOME}/.claude/commands
+ln -snfv ${DOT_DIRECTORY}/claude/settings.json ${HOME}/.claude/settings.json
+for f in ${DOT_DIRECTORY}/claude/commands/*; do
+    ln -snfv ${f} ${HOME}/.claude/commands/$(basename ${f})
+done
+
 echo "linked dotfiles complete!"
