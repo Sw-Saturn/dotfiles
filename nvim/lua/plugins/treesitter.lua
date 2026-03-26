@@ -1,25 +1,25 @@
 return {
-  -- Core: better syntax highlighting and code understanding
+  -- Core: parser installation and management
+  -- Highlighting/indent are handled automatically by Neovim once parsers are installed
   {
     "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    event = { "BufReadPost", "BufNewFile" },
-    dependencies = {
-      -- Text objects: select/move by function, class, argument
-      "nvim-treesitter/nvim-treesitter-textobjects",
-    },
-    opts = {
-      ensure_installed = {
+    build = function()
+      require("nvim-treesitter.install").install({
         "bash", "go", "gomod", "gosum", "gowork",
         "python", "rust", "toml",
         "typescript", "javascript", "tsx",
         "json", "yaml", "lua", "vim", "vimdoc",
         "html", "css", "markdown", "markdown_inline",
-      },
-      auto_install = true,
-      highlight = { enable = true },
-      indent    = { enable = true },
-      textobjects = {
+      })
+    end,
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+    },
+    config = function()
+
+      -- Text objects: select/move by function, class, argument
+      require("nvim-treesitter-textobjects").setup({
         select = {
           enable    = true,
           lookahead = true,
@@ -33,8 +33,8 @@ return {
           },
         },
         move = {
-          enable     = true,
-          set_jumps  = true,
+          enable    = true,
+          set_jumps = true,
           goto_next_start = {
             ["]f"] = "@function.outer",
             ["]c"] = "@class.outer",
@@ -44,20 +44,16 @@ return {
             ["[c"] = "@class.outer",
           },
         },
-      },
-    },
-    config = function(_, opts)
-      require("nvim-treesitter").setup(opts)
+      })
     end,
   },
 
   -- Shows current function/class context at the top of the window
-  -- when scrolling through long files — great for code reading
   {
     "nvim-treesitter/nvim-treesitter-context",
     event = { "BufReadPost", "BufNewFile" },
     opts = {
-      max_lines      = 3,
+      max_lines         = 3,
       min_window_height = 20,
     },
   },
