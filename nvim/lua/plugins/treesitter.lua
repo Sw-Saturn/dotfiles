@@ -17,6 +17,14 @@ return {
       "nvim-treesitter/nvim-treesitter-textobjects",
     },
     config = function()
+      -- Enable treesitter highlighting for any filetype that has a parser installed.
+      -- Neovim only auto-enables this for lua/help/query; all others need explicit activation.
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("TreesitterHighlight", {}),
+        callback = function(ev)
+          pcall(vim.treesitter.start, ev.buf)
+        end,
+      })
 
       -- Text objects: select/move by function, class, argument
       require("nvim-treesitter-textobjects").setup({
