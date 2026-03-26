@@ -71,6 +71,7 @@ alias la='ls -a'
 alias photoarg='bash $HOME/dotfiles/photoarg.sh'
 alias t='terraform'
 alias k='kubectl'
+alias g='git'
 
 source $HOME/.cargo/env
 setopt auto_cd
@@ -117,3 +118,7 @@ export PATH="$PATH:/Users/saturn/.local/bin"
 
 # Added by Antigravity
 export PATH="/Users/saturn/.antigravity/antigravity/bin:$PATH"
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/saturn/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
