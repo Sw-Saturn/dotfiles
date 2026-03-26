@@ -42,7 +42,10 @@ return {
       "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
-      local lspconfig    = require("lspconfig")
+      -- Load lspconfig to register server definitions (cmd, root_dir, filetypes, etc.)
+      -- vim.lsp.config/enable only override settings; the base definitions come from lspconfig
+      require("lspconfig")
+
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       -- Keymaps applied whenever an LSP attaches to a buffer
@@ -76,76 +79,73 @@ return {
         end,
       })
 
-      -- Per-server settings
-      local servers = {
-        gopls = {
-          settings = {
-            gopls = {
-              analyses      = { unusedparams = true, shadow = true },
-              staticcheck   = true,
-              gofumpt       = true,
-              usePlaceholders = true,
-              -- Enable inlay hints for Go
-              hints = {
-                assignVariableTypes    = true,
-                compositeLiteralFields = true,
-                constantValues         = true,
-                functionTypeParameters = true,
-                parameterNames         = true,
-                rangeVariableTypes     = true,
-              },
-            },
-          },
-        },
-        pyright = {
-          settings = {
-            python = {
-              analysis = {
-                typeCheckingMode  = "standard",
-                autoSearchPaths   = true,
-                useLibraryCodeForTypes = true,
-                diagnosticMode    = "workspace",
-              },
-            },
-          },
-        },
-        ts_ls = {
-          settings = {
-            typescript = {
-              inlayHints = {
-                includeInlayParameterNameHints        = "all",
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints          = true,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints  = true,
-              },
-            },
-            javascript = {
-              inlayHints = {
-                includeInlayParameterNameHints         = "all",
-                includeInlayFunctionParameterTypeHints = true,
-              },
-            },
-          },
-        },
-        lua_ls = {
-          settings = {
-            Lua = {
-              diagnostics = { globals = { "vim" } },
-              workspace   = { checkThirdParty = false },
-              telemetry   = { enable = false },
-            },
-          },
-        },
-        bashls  = {},
-        jsonls  = {},
-        yamlls  = {},
-      }
+      -- Global capabilities for all servers (nvim 0.11+ API)
+      vim.lsp.config("*", { capabilities = capabilities })
 
-      for name, config in pairs(servers) do
-        config.capabilities = capabilities
-        lspconfig[name].setup(config)
-      end
+      -- Per-server settings
+      vim.lsp.config("gopls", {
+        settings = {
+          gopls = {
+            analyses        = { unusedparams = true, shadow = true },
+            staticcheck     = true,
+            gofumpt         = true,
+            usePlaceholders = true,
+            hints = {
+              assignVariableTypes    = true,
+              compositeLiteralFields = true,
+              constantValues         = true,
+              functionTypeParameters = true,
+              parameterNames         = true,
+              rangeVariableTypes     = true,
+            },
+          },
+        },
+      })
+
+      vim.lsp.config("pyright", {
+        settings = {
+          python = {
+            analysis = {
+              typeCheckingMode       = "standard",
+              autoSearchPaths        = true,
+              useLibraryCodeForTypes = true,
+              diagnosticMode         = "workspace",
+            },
+          },
+        },
+      })
+
+      vim.lsp.config("ts_ls", {
+        settings = {
+          typescript = {
+            inlayHints = {
+              includeInlayParameterNameHints             = "all",
+              includeInlayFunctionParameterTypeHints     = true,
+              includeInlayVariableTypeHints              = true,
+              includeInlayPropertyDeclarationTypeHints   = true,
+              includeInlayFunctionLikeReturnTypeHints    = true,
+            },
+          },
+          javascript = {
+            inlayHints = {
+              includeInlayParameterNameHints         = "all",
+              includeInlayFunctionParameterTypeHints = true,
+            },
+          },
+        },
+      })
+
+      vim.lsp.config("lua_ls", {
+        settings = {
+          Lua = {
+            diagnostics = { globals = { "vim" } },
+            workspace   = { checkThirdParty = false },
+            telemetry   = { enable = false },
+          },
+        },
+      })
+
+      vim.lsp.enable({ "gopls", "pyright", "ts_ls", "lua_ls", "bashls", "jsonls", "yamlls" })
 
       -- Enable inlay hints globally (nvim 0.10+)
       vim.lsp.inlay_hint.enable(true)
@@ -180,7 +180,7 @@ return {
     event = "BufWritePre",
     cmd   = "ConformInfo",
     keys  = {
-      { "<leader>cf", function() require("conform").format({ async = true, lsp_fallback = true }) end, desc = "Format (conform)" },
+      { "<leader>cf", function() require("conform").format({ async = true, lsp_format = "fallback" }) end, desc = "Format (conform)" },
     },
     opts = {
       formatters_by_ft = {
@@ -193,8 +193,8 @@ return {
         lua        = { "stylua" },
       },
       format_on_save = {
-        timeout_ms   = 500,
-        lsp_fallback = true,
+        timeout_ms = 500,
+        lsp_format = "fallback",
       },
     },
   },
