@@ -14,7 +14,7 @@ return {
     opts = {
       ensure_installed = {
         -- LSP servers
-        "gopls", "pyright", "ts_ls", "lua_ls", "bashls", "jsonls", "yamlls",
+        "gopls", "pyright", "typescript-language-server", "lua-language-server", "bash-language-server", "json-lsp", "yaml-language-server",
         -- Formatters
         "gofumpt", "goimports", "black", "isort", "prettier", "stylua",
       },
